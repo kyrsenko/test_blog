@@ -28,6 +28,11 @@ function fetchReducer(state = initialState, action) {
         ...state,
         payload
       };
+    case ACTION_TYPES.SET_DELETE_POST:
+      return {
+        ...state,
+        payload
+      };
     default:
       return state;
   }

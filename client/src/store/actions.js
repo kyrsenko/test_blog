@@ -11,6 +11,10 @@ export const fetchPost = id => ({
   type: ACTION_TYPES.RUN_FETCH_POST,
   id
 });
+export const deletePost = id => ({
+  type: ACTION_TYPES.RUN_DELETE_POST,
+  id
+});
 export const createPost = body => {
   return {
     type: ACTION_TYPES.RUN_CREATE_POST,
@@ -49,6 +53,19 @@ function* fetchPostSaga() {
   }
 }
 
+function* deletePostSaga() {
+  while (true) {
+    const { id } = yield take(ACTION_TYPES.RUN_DELETE_POST);
+    const response = yield axios.delete(`/api/posts/${id}`);
+    console.log(response)
+    yield put({
+      type: ACTION_TYPES.SET_DELETE_POST,
+      payload: response.data
+    });
+  }
+}
+
+
 function* createPostSaga() {
   while (true) {
     const { body } = yield take(ACTION_TYPES.RUN_CREATE_POST);
@@ -76,7 +93,8 @@ export function* rootSaga() {
     fetchPostsSaga(),
     fetchPostSaga(),
     createPostSaga(),
-    addCommentSaga()
+    addCommentSaga(),
+    deletePostSaga()
   ]);
 }
 /* eslint-enable */

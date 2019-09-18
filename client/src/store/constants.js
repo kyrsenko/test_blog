@@ -2,8 +2,10 @@ export const RUN_FETCH_POSTS = 'RUN_FETCH_POSTS';
 export const RUN_FETCH_POST = 'RUN_FETCH_POST';
 export const RUN_CREATE_POST = 'RUN_CREATE_POST';
 export const RUN_ADD_COMMENT = 'RUN_ADD_COMMENT';
+export const RUN_DELETE_POST = 'RUN_DELETE_POST';
 
 export const SET_FETCH_POSTS = 'SET_FETCH_POSTS';
 export const SET_FETCH_POST = 'SET_FETCH_POST';
 export const SET_CREATE_POST = 'SET_CREATE_POST';
 export const SET_ADD_COMMENT = 'SET_ADD_COMMENT';
+export const SET_DELETE_POST = 'SET_DELETE_POST';

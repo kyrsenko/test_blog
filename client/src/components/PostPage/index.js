@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { Lines } from 'react-preloaders';
 
-import { fetchPost, addComment } from '../../store/actions';
+import { fetchPost, addComment, deletePost } from '../../store/actions';
 
 const mapStateToProps = state => {
   return { post: state.fetchReducer.post };
@@ -10,9 +10,9 @@ const mapStateToProps = state => {
 
 export const PostPage = connect(
   mapStateToProps,
-  { fetchPost, addComment }
+  { fetchPost, addComment, deletePost }
 )(props => {
-  const { post, fetchPost, addComment } = props;
+  const { post, fetchPost, addComment, deletePost } = props;
 
   const [loading, setLoading] = useState(true);
   const [flag, setFlag] = useState(true);
@@ -33,6 +33,11 @@ export const PostPage = connect(
   const onChangeHandler = e => {
     const value = e.target.value;
     setTextValue(value);
+  };
+
+  const onDeleteHandler = () => {
+    deletePost(props.match.params.id);
+    props.history.push('/');
   };
 
   const Comments = () => {
@@ -57,6 +62,7 @@ export const PostPage = connect(
               <span>Created: {post[0].date.split('T')[0]}</span>
               <span>by {post[0].author}</span>
             </div>
+            <button onClick={onDeleteHandler}>Delete post</button>
           </article>
           <Comments />
           <form onSubmit={onSubmitHandler}>

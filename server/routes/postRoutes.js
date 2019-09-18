@@ -53,6 +53,20 @@ router.put('/api/comment/:id', async (req, res) => {
   }
 });
 
+router.delete('/api/posts/:id', async (req, res) => {
+  try {
+    await Post.findOneAndDelete({
+      _id: req.params.id
+    });
+    res.json({
+      deleted: true
+    });
+  } catch (error) {
+    await res.json({
+      deleted: false
+    });
+  }
+});
 
 module.exports = router;
 
