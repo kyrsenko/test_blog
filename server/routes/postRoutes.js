@@ -33,8 +33,6 @@ router.post('/api/posts', async (req, res) => {
 
 router.put('/api/comment/:id', async (req, res) => {
   try {
-    console.log(req.body.comments)
-    console.log(req.params.id)
     await Post.findOneAndUpdate(
       {
         _id: req.params.id
