@@ -1,6 +1,6 @@
 const { Schema, model } = require('mongoose');
 
-var schema = new Schema({
+const schema = new Schema({
   title: String,
   author: String,
   body: String,
