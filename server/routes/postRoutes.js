@@ -53,6 +53,29 @@ router.put('/api/comment/:id', async (req, res) => {
   }
 });
 
+router.put('/api/edit/:id', async (req, res) => {
+  try {
+    console.log(req.body.comments)
+    console.log(req.params.id)
+    await Post.findOneAndUpdate(
+      {
+        _id: req.params.id
+      },
+      {
+        title: req.body.title,
+        body: req.body.body
+      }
+    );
+    res.json({
+      edited: true
+    });
+  } catch (error) {
+    res.json({
+      edited: false
+    });
+  }
+});
+
 router.delete('/api/posts/:id', async (req, res) => {
   try {
     await Post.findOneAndDelete({

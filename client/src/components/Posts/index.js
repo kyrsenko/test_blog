@@ -16,8 +16,6 @@ export const Posts = connect(
   { fetchPosts }
 )(props => {
   const { posts, fetchPosts } = props;
-  // console.log('props', props);
-  // console.log('posts', posts);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -28,7 +26,7 @@ export const Posts = connect(
   return (
     <React.Fragment>
       {posts
-        ? posts.map((item, index) => {
+        ? posts.reverse().map((item, index) => {
             return <PostPreview state={item} key={index} />;
           })
         : null}

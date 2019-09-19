@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { Lines } from 'react-preloaders';
+import { Link } from 'react-router-dom';
+import './style.scss'
 
 import { fetchPost, addComment, deletePost } from '../../store/actions';
 
@@ -51,21 +53,32 @@ export const PostPage = connect(
     ) : null;
   };
 
+  
   return (
     <React.Fragment>
       {post ? (
-        <section>
-          <article>
+        <section className='container'>
+          <article className='post'>
             <h2>{post[0].title}</h2>
             <p>{post[0].body}</p>
-            <div>
+            <div className='info-wrapper'>
               <span>Created: {post[0].date.split('T')[0]}</span>
               <span>by {post[0].author}</span>
             </div>
-            <button onClick={onDeleteHandler}>Delete post</button>
+            <div>
+            <button className='primary-btn' onClick={onDeleteHandler}>Delete post</button>
+            <Link
+              to={{
+                pathname: `/edit-post/${props.match.params.id}`,
+                state: post[0]
+              }}
+            >
+              <button className='primary-btn'>Edit post</button>
+            </Link>
+            </div>
           </article>
           <Comments />
-          <form onSubmit={onSubmitHandler}>
+          <form className='post-form' onSubmit={onSubmitHandler}>
             <textarea
               style={{ width: '100%' }}
               name="comment"
@@ -74,7 +87,7 @@ export const PostPage = connect(
               onChange={onChangeHandler}
               placeholder="Your comment..."
             />
-            <button>Add a comment</button>
+            <button className='primary-btn'>Add a comment</button>
           </form>
         </section>
       ) : null}

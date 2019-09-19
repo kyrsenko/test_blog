@@ -1,24 +1,21 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { createPost } from '../../store/actions';
-
+import { editPost } from '../../store/actions';
 import './style.scss'
 
-export const PostCreationPage = connect(
+export const PostEditPage = connect(
   null,
-  { createPost }
+  { editPost }
 )(props => {
-  // console.log(props);
-  const { createPost } = props;
+  const { editPost } = props;
   const [data, setData] = useState({
-    title: '',
-    body: '',
-    author: 'User'
+    title: props.location.state.title,
+    body: props.location.state.body
   });
   const onSubmitHandler = e => {
     e.preventDefault();
-    createPost(data);
-    props.history.push('/');
+    editPost(props.match.params.id, data);
+    props.history.goBack();
   };
   const onChangeHandler = e => {
     const name = e.target.getAttribute('name');
@@ -30,42 +27,29 @@ export const PostCreationPage = connect(
   };
 
   return (
-    <section className="container">
-      <h2 className='edit-title'>Create post</h2>
+    <section className='container'>
+      <h2 className='edit-title'>Edit post</h2>
       <form className='post-form' onSubmit={onSubmitHandler}>
         <div>
           <input
             className='edit-input'
             type="text"
             name="title"
+            value={data.title}
             onChange={onChangeHandler}
             style={{ width: '100%' }}
-            placeholder="Title"
           />
         </div>
         <div>
           <textarea
-            className="edit-textarea"
-            style={{ width: '100%' }}
+            className='edit-textarea'
             name="body"
             rows="30"
+            value={data.body}
             onChange={onChangeHandler}
-            placeholder="Text"
           />
         </div>
-        <div>
-          <input
-            className="edit-author-input"
-            type="text"
-            name="author"
-            onChange={onChangeHandler}
-            style={{ width: '100%' }}
-            placeholder="Your name"
-          />
-        </div>
-        <button className="primary-btn" type="submit">
-          Create
-        </button>
+        <button className='primary-btn' type="submit">Edit</button>
       </form>
     </section>
   );

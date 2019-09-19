@@ -33,6 +33,11 @@ function fetchReducer(state = initialState, action) {
         ...state,
         payload
       };
+    case ACTION_TYPES.SET_UPDATE_POST:
+      return {
+        ...state,
+        payload
+      };
     default:
       return state;
   }

@@ -29,6 +29,14 @@ export const addComment = (id, body) => {
   };
 };
 
+export const editPost = (id, body) => {
+  return {
+    type: ACTION_TYPES.RUN_UPDATE_POST,
+    id,
+    body
+  };
+};
+
 // Sagas
 /* eslint-disable */
 function* fetchPostsSaga() {
@@ -88,13 +96,25 @@ function* addCommentSaga() {
   }
 }
 
+function* editPostSaga() {
+  while (true) {
+    const { id, body } = yield take(ACTION_TYPES.RUN_UPDATE_POST);
+    const response = yield axios.put(`/api/edit/${id}`, body);
+    console.log('update', response.data);
+    yield put({
+      type: ACTION_TYPES.SET_UPDATE_POST
+    });
+  }
+}
+
 export function* rootSaga() {
   yield all([
     fetchPostsSaga(),
     fetchPostSaga(),
     createPostSaga(),
     addCommentSaga(),
-    deletePostSaga()
+    deletePostSaga(),
+    editPostSaga()
   ]);
 }
 /* eslint-enable */
