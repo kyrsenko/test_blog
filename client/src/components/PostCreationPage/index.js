@@ -39,14 +39,12 @@ export const PostCreationPage = connect(
             type="text"
             name="title"
             onChange={onChangeHandler}
-            style={{ width: '100%' }}
             placeholder="Title"
           />
         </div>
         <div>
           <textarea
             className="edit-textarea"
-            style={{ width: '100%' }}
             name="body"
             rows="30"
             onChange={onChangeHandler}
@@ -59,7 +57,6 @@ export const PostCreationPage = connect(
             type="text"
             name="author"
             onChange={onChangeHandler}
-            style={{ width: '100%' }}
             placeholder="Your name"
           />
         </div>
